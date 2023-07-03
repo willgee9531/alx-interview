@@ -1,18 +1,20 @@
 #!/usr/bin/python3
-"""
-0-pascal_triangle
-"""
+'''
+Returns list representing the Pascal's triangle of n
+'''
 
 
 def pascal_triangle(n):
-    # integers representing the Pascal's triangle
-    list = []
-    for i in range(n):
-        temp_list = []
-        for j in range(i+1):
-            if j == 0 or j == i:
-                temp_list.append(1)
-            else:
-                temp_list.append(list[i-1][j-1] + list[i-1][j])
-        list.append(temp_list)
-    return list
+    '''returns empty list if n <= 0'''
+    if n <= 0:
+        return []
+
+    triangle = []
+    row = []
+    prev_row = []
+    for i in range(0, n + 1):
+        row = [j > 0 and j < i - 1 and i > 2 and prev_row[j-1] +
+               prev_row[j] or 1 for j in range(0, i)]
+        prev_row = row
+        triangle += [row]
+    return triangle[1:]
